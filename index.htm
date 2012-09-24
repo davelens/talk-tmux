@@ -1,0 +1,262 @@
+<?php
+header('X-Frame-Options: GOFORIT');
+?>
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html class="no-js ie6" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js ie7" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js ie8" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!-->  <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+	<title>An introduction to tmux</title>
+
+	<meta name="description" content="A jQuery library for modern HTML presentations">
+	<meta name="author" content="Caleb Troughton">
+	<meta name="viewport" content="width=1024, user-scalable=no">
+
+	<!-- Core and extension CSS files -->
+	<link rel="stylesheet" href="js/deck/core/deck.core.css">
+	<link rel="stylesheet" href="js/deck/extensions/goto/deck.goto.css">
+	<link rel="stylesheet" href="js/deck/extensions/menu/deck.menu.css">
+	<link rel="stylesheet" href="js/deck/extensions/navigation/deck.navigation.css">
+	<link rel="stylesheet" href="js/deck/extensions/status/deck.status.css">
+	<link rel="stylesheet" href="js/deck/extensions/hash/deck.hash.css">
+	<link rel="stylesheet" href="js/deck/extensions/scale/deck.scale.css">
+
+	<!-- Style theme. More available in /themes/style/ or create your own. -->
+	<link rel="stylesheet" href="js/deck/themes/style/swiss.css">
+
+	<!-- Transition theme. More available in /themes/transition/ or create your own. -->
+	<link rel="stylesheet" href="js/deck/themes/transition/horizontal-slide.css">
+
+	<script type="text/javascript" src="js/modernizr.custom.js"></script>
+	<style>
+		.sidenote {
+			color: grey;
+			font-size: 12px !important;
+		}
+	</style>
+</head>
+
+<body class="deck-container">
+
+<!-- Begin slides -->
+<section class="slide" id="title-slide">
+	<h1>tmux</h1>
+</section>
+
+<section class="slide" id="definitions">
+	<h2>What is tmux?</h2>
+	<ul>
+		<li>
+			A terminal multiplexer <span class="sidenote">(I know this doesn't actually explain anything)</span>
+		</li>
+		<li class="slide">
+			"Multiplexing" means combining a series of streams into a single conduit
+		</li>
+		<li class="slide">
+			<strong>tmux</strong> allows you to launch multiple <em>windows</em> inside a single terminal instance
+		</li>
+		<li class="slide">
+			Each window in itself allows you to open several sub-windows or <em>panes</em>
+		</li>
+	</ul>
+</section>
+
+<section class="slide" id="tmux-example-1">
+	<h2>What is tmux?</h2>
+	<h4>The goal:</h4>
+	<p>Providing better window management whilst working on the commandline.</p>
+	<p><img src="http://i01.i.aliimg.com/photo/v0/596214115/Service_Drop_ABC_Multiplex_Cable_Aerial_Bundle.jpg" alt="" /></p>
+</section>
+
+
+<section class="slide" id="tmux-example-1">
+	<h2>What is tmux?</h2>
+	<h4>Example</h4>
+	<div>
+		<p>This is a terminal running tmux with 1 <em>window</em> and 4 <em>panes</em>:</p>
+		<img src="http://farm5.staticflickr.com/4057/5079888587_fa64ed87c5_b.jpg" alt="default tmux with 1 active window 4 panes" />
+	</div>
+</section>
+
+<section class="slide" id="tmux-example-2">
+	<h2>What is tmux?</h2>
+	<h4>Example</h4>
+	<div>
+		<p>There are no limits to pane quantity or alignment:</p>
+		<img src="images/panes.png" alt="default tmux with way too many panes" />
+	</div>
+</section>
+
+<section class="slide" id="why-tmux">
+	<h2>Why?</h2>
+	<ol>
+		<li class="slide">
+			Your mouse is slowing you down.
+		</li>
+		<li class="slide">
+			You need context while working in the terminal.
+		</li>
+		<li class="slide">
+			Pair programming
+		</li>
+	</ol>
+</section>
+
+<section class="slide" id="your-mouse-is-slowing-you-down">
+	<h2>1. Your mouse is slowing you down</h2>
+	<div>
+		<blockquote style="font-size: 36px;">
+			<p>&laquo;It may not seem like much, but moving your hand off of the keyboard’s home row, placing it on the mouse, locating the pointer, and performing the task can be pretty distracting. It can make you lose focus.&raquo;</p>
+			<cite>Brian P. Hogan</cite>
+		</blockquote>
+	</div>
+</section>
+
+
+<section class="slide" id="your-mouse-is-slowing-you-down">
+	<h2>1. Your mouse is slowing you down</h2>
+	<div>
+		<p>tmux makes switching between sessions, panes and windows faster and easier without your hands ever having to leave the home row.</p>
+	</div>
+</section>
+
+<section class="slide" id="context">
+	<h2>2. Context</h2>
+	<h4>Problem:</h4>
+	<p>
+		<img src="images/context.png" alt="A severe lack of context here" />
+	</p>
+</section>
+
+<section class="slide" id="context">
+	<h2>2. Context</h2>
+	<h4>Solution:</h4>
+	<p><em>Windows</em> and <em>panes</em> can be combined into <strong>sessions</strong> in tmux.</p>
+	<ul>
+		<li class="slide">1 session <em>should</em> represent 1 project</li>
+		<li class="slide">Sessions are <em>persistant</em>; closing your terminal means you can come back to it later</li>
+	</ul>
+</section>
+
+<section class="slide" id="context">
+	<h2>2. Context</h2>
+	<h4>Solution:</h4>
+	<p>
+		This is an example of a project with a customized tmux config.<br />
+		It has three windows: an editor, a database manager, and a generic shell window.
+	</p>
+	<p>
+		<img src="images/session.png" alt="Several windows combined into a session, representing one project" />
+	</p>
+</section>
+
+<section class="slide">
+	<h2>3. Pair programming</h2>
+	<p>Two programmers working together at one workstation, frequently switching between roles:</p>
+	<div>
+		<ul>
+			<li class="slide">The <strong>driver</strong> writes code</li>
+			<li class="slide">The <strong>navigator</strong> reviews each line as it is typed in, and gives feedback</li>
+		</ul>
+	</div>
+	<div class="slide">
+		<p>tmux's server/client architecture allows for remote pairing via SSH.</p>
+	</div>
+</section>
+
+<section class="slide">
+	<h2>3. Pair programming</h2>
+	<p>Pros</p>
+	<ul>
+		<li class="slide">Minimal lag for the guest developer</li>
+		<li class="slide">SSH</li>
+		<li class="slide">Cross-platform (obviously excluding Windows)</li>
+	</ul>
+	<p>Cons</p>
+	<ul>
+		<li class="slide">Whilst pairing remotely, you are limited to the shell</li>
+		<li class="slide">Small learning curve for tmux navigation</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Customization</h2>
+	<p>Tmux' look and feel is highly customizable through a <strong>.tmux.conf</strong> file in your homedir.</p>
+	<p>Essentially, you can build your own development environment.</p>
+	<p>
+		<img src="images/session.png" alt="Several windows combined into a session, representing one project" />
+	</p>
+</section>
+
+<section class="slide">
+	<h2>References</h2>
+
+	<h3>book: "tmux: Productive Mouse-Free Development"</h3>
+	<p><a href="http://pragprog.com/book/bhtmux/tmux">http://pragprog.com/book/bhtmux/tmux</a></p>
+
+	<h3>My tmux config</h3>
+	<p><a href="http://github.com/davelens/dotfiles/blob/master/tmux.conf">http://github.com/davelens/dotfiles/blog/master/tmux.conf</a></p>
+
+	<h3>My "dev company/project"-command</h3>
+	<p><a href="http://github.com/davelens/dotfiles/blob/master/bin/tmux_open_project.sh">http://github.com/davelens/dotfiles/blob/master/bin/tmux_open_project.sh</a></p>
+</section>
+
+<section class="slide">
+	<h2>Questions?</h2>
+	<input id="query" type="text" name="query" value="Where do babies come from?" style="width: 400px;" />
+	<input id="search" type="submit" value="shoot!" />
+
+	<div id="google"></div>
+</section>
+
+<!-- deck.navigation snippet -->
+<a href="#" class="deck-prev-link" title="Previous">&#8592;</a>
+<a href="#" class="deck-next-link" title="Next">&#8594;</a>
+
+<!-- deck.status snippet -->
+<p class="deck-status">
+	<span class="deck-status-current"></span>
+	/
+	<span class="deck-status-total"></span>
+</p>
+
+<!-- deck.goto snippet -->
+<form action="." method="get" class="goto-form">
+	<label for="goto-slide">Go to slide:</label>
+	<input type="text" name="slidenum" id="goto-slide" list="goto-datalist">
+	<datalist id="goto-datalist"></datalist>
+	<input type="submit" value="Go">
+</form>
+
+<!-- deck.hash snippet -->
+<a href="." title="Permalink to this slide" class="deck-permalink">#</a>
+
+
+<!-- Grab CDN jQuery, with a protocol relative URL; fall back to local if offline -->
+<script src="//ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+<script>window.jQuery || document.write('<script src="js/jquery-1.7.min.js"><\/script>')</script>
+
+<!-- Deck Core and extensions -->
+<script src="js/deck/core/deck.core.js"></script>
+<script src="js/deck/extensions/hash/deck.hash.js"></script>
+<script src="js/deck/extensions/menu/deck.menu.js"></script>
+<script src="js/deck/extensions/goto/deck.goto.js"></script>
+<script src="js/deck/extensions/status/deck.status.js"></script>
+<script src="js/deck/extensions/navigation/deck.navigation.js"></script>
+<script src="js/deck/extensions/scale/deck.scale.js"></script>
+
+<script type="text/javascript" src="js/general.js"></script>
+
+<!-- Initialize the deck -->
+<script>
+$(function() {
+	$.deck('.slide');
+});
+</script>
+
+</body>
+</html>
